@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { MapContainer as RLMapContainer, TileLayer as RLTileLayer, Marker as RLMarker, useMapEvents, Popup as RLPopup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import WeatherFetcher from "./WeatherFetcher";
@@ -77,23 +77,23 @@ export function SimpleMapSelector({ onLocationSelect }: MapSelectorProps) {
           ))}
         </div>
         <div className="rounded-md overflow-hidden" style={{ height: 260 }}>
-          <RLMapContainer
+          <MapContainer
             center={[location.lat, location.lng]}
             zoom={5}
             style={{ height: 240, width: "100%" }}
             scrollWheelZoom={false}
           >
-            <RLTileLayer
+            <TileLayer
               attribution='© <a href="https://www.openstreetmap.org/copyright">OSM</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <RLMarker position={[location.lat, location.lng]} icon={markerIcon}>
-              <RLPopup>
+            <Marker position={[location.lat, location.lng]} icon={markerIcon}>
+              <Popup>
                 <span>{location.name}</span>
-              </RLPopup>
-            </RLMarker>
+              </Popup>
+            </Marker>
             <MapClicker setLocation={setLocation} />
-          </RLMapContainer>
+          </MapContainer>
         </div>
       </div>
       {/* Weather info */}
