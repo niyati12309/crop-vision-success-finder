@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
       <main>
         {/* Hero Section */}
         <section className="relative">
@@ -15,11 +13,11 @@ const Index = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                  AI-Powered Crop Success Prediction
+                  Welcome to <span className="text-agriculture-200">FarmSightAI</span>
                 </h1>
                 <p className="text-xl mb-8 text-agriculture-100">
-                  Maximize your harvest with intelligent analytics that predict crop suitability,
-                  soil compatibility, and recommend the best crops for your location.
+                  Maximize your harvest with <b>FarmSightAI</b>'s intelligent analytics powered by real weather and soil data.
+                  Predict crop suitability, compatibility scores, and get the best farming recommendations for your land.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link to="/predict">
@@ -187,7 +185,7 @@ const Index = () => {
       <footer className="bg-agriculture-800 text-white py-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-agriculture-200">
-            © 2025 CropVision Success Predictor | Hackathon Project Demo
+            © 2025 FarmSightAI Success Predictor | Hackathon Project Demo
           </p>
         </div>
       </footer>

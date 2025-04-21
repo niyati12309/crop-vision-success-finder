@@ -19,17 +19,13 @@ export function Header() {
               strokeLinejoin="round"
               className="text-white"
             >
-              <path d="M3 16V8a5 5 0 0 1 10 0v8"></path>
-              <path d="M18 16V8a3 3 0 0 0-6 0v8"></path>
-              <path d="M21 16V8a1 1 0 0 0-1-1h-2"></path>
-              <line x1="21" y1="16" x2="3" y2="16"></line>
-              <line x1="12" y1="16" x2="12" y2="21"></line>
-              <path d="M9 21h6"></path>
+              {/* simple sprout icon for farming theme */}
+              <path d="M12 19V5M12 5l-2 2M12 5l2 2M10 7a7 7 0 1 0 4.001 7M14 7A7 7 0 0 1 9.999 14" />
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold">CropVision</span>
-            <span className="text-xs text-agriculture-200">Success Predictor</span>
+            <span className="text-lg font-bold">FarmSightAI</span>
+            <span className="text-xs text-agriculture-200">Farming Success Predictor</span>
           </div>
         </Link>
         <nav>
