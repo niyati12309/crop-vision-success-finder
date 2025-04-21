@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 
 // Util for getting and setting API key in localStorage
 function getStoredApiKey() {
-  return localStorage.getItem("owm_api_key") || "";
+  return localStorage.getItem("weatherapi_key") || "";
 }
 
 function setStoredApiKey(key: string) {
-  localStorage.setItem("owm_api_key", key);
+  localStorage.setItem("weatherapi_key", key);
 }
 
 interface WeatherFetcherProps {
@@ -15,9 +15,10 @@ interface WeatherFetcherProps {
   lng: number;
 }
 
-// Fetch weather data from OpenWeatherMap
+// Fetch weather data from weatherapi.com
 async function fetchWeather(lat: number, lng: number, apiKey: string) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`;
+  // weatherapi.com expects q as "latitude,longitude"
+  const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lng}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Weather fetch error");
   return res.json();
@@ -32,7 +33,7 @@ export default function WeatherFetcher({ lat, lng }: WeatherFetcherProps) {
   useEffect(() => {
     if (!apiKey) {
       setWeather(null);
-      setError("Please enter your OpenWeatherMap API key below.");
+      setError("Please enter your WeatherAPI.com API key below.");
       return;
     }
     setError("");
@@ -51,12 +52,12 @@ export default function WeatherFetcher({ lat, lng }: WeatherFetcherProps) {
       {!apiKey && (
         <div className="mb-2">
           <label className="block text-agriculture-800 mb-1 text-sm font-medium">
-            OpenWeatherMap API Key:
+            WeatherAPI.com API Key:
           </label>
           <input
             value={inputKey}
             onChange={(e) => setInputKey(e.target.value)}
-            placeholder="Paste your OpenWeatherMap API Key"
+            placeholder="Paste your WeatherAPI.com API Key"
             className="border border-agriculture-300 rounded px-2 py-1 text-sm"
           />
           <button
@@ -67,8 +68,8 @@ export default function WeatherFetcher({ lat, lng }: WeatherFetcherProps) {
           </button>
           <p className="text-xs mt-1 text-gray-600">
             Get free API key at{" "}
-            <a href="https://openweathermap.org/appid" target="_blank" rel="noopener noreferrer" className="text-blue-900 underline">
-              openweathermap.org
+            <a href="https://weatherapi.com/" target="_blank" rel="noopener noreferrer" className="text-blue-900 underline">
+              weatherapi.com
             </a>
           </p>
         </div>
@@ -79,32 +80,30 @@ export default function WeatherFetcher({ lat, lng }: WeatherFetcherProps) {
           <div className="flex flex-wrap gap-4 items-center">
             <div>
               <div className="text-agriculture-800 font-semibold text-md">
-                {weather.weather?.[0]?.main || "Weather"}
+                {weather.current?.condition?.text || "Weather"}
               </div>
               <div className="text-agriculture-700 text-xs">
                 <span>
-                  {weather.weather?.[0]?.description}
+                  {weather.location?.name}, {weather.location?.region}
                 </span>
               </div>
             </div>
             <div>
               <span className="text-lg font-bold text-agriculture-900">
-                {weather.main?.temp ? `${Math.round(weather.main.temp)}°C` : "--"}
+                {weather.current?.temp_c != null ? `${Math.round(weather.current.temp_c)}°C` : "--"}
               </span>
               <span className="ml-1 text-gray-500 text-xs">Temp</span>
             </div>
             <div>
               <span className="font-semibold text-agriculture-700">
-                Humidity: {weather.main?.humidity != null ? `${weather.main.humidity}%` : "--"}
+                Humidity: {weather.current?.humidity != null ? `${weather.current.humidity}%` : "--"}
               </span>
             </div>
             <div>
               <span className="font-semibold text-agriculture-700">
                 Rain:{" "}
-                {weather.rain?.["1h"]
-                  ? `${weather.rain["1h"]} mm`
-                  : weather.rain?.["3h"]
-                  ? `${weather.rain["3h"]} mm`
+                {weather.current?.precip_mm != null
+                  ? `${weather.current.precip_mm} mm`
                   : "0 mm"}
               </span>
             </div>

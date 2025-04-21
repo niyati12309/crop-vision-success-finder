@@ -60,7 +60,7 @@ const Predict = () => {
         {!predictionResult ? (
           <>
             <div className="max-w-4xl mx-auto mb-8">
-              <h1 className="text-3xl font-bold text-agriculture-800 mb-2">Crop Success Prediction</h1>
+              <h1 className="text-3xl font-bold text-agriculture-800 mb-2">Farming Success Predictor</h1>
               <p className="text-agriculture-600">
                 Analyze crop suitability based on location, soil conditions, and season
               </p>
